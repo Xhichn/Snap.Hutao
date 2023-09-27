@@ -88,13 +88,18 @@ internal static partial class IocHttpClientConfiguration
     /// HoYoLAB web
     /// </summary>
     /// <param name="client">配置后的客户端</param>
-    [SuppressMessage("", "IDE0051")]
     private static void XRpc4Configuration(HttpClient client)
     {
         client.Timeout = Timeout.InfiniteTimeSpan;
-        client.DefaultRequestHeaders.UserAgent.ParseAdd(HoyolabOptions.UserAgentOversea);
+        client.DefaultRequestHeaders.UserAgent.ParseAdd(HoyolabOptions.UserAgent);
         client.DefaultRequestHeaders.Accept.ParseAdd(ApplicationJson);
-        client.DefaultRequestHeaders.Add("x-rpc-app_version", "1.5.0");
-        client.DefaultRequestHeaders.Add("x-rpc-client_type", "4");
+        client.DefaultRequestHeaders.Add("x-rpc-aigis", string.Empty);
+        client.DefaultRequestHeaders.Add("x-rpc-app_id", "c9oqaq3s3gu8");
+        client.DefaultRequestHeaders.Add("x-rpc-app_version", SaltConstants.OSVersion);
+        client.DefaultRequestHeaders.Add("x-rpc-client_type", "1");
+        client.DefaultRequestHeaders.Add("x-rpc-language", "zh-cn");
+        client.DefaultRequestHeaders.Add("x-rpc-device_id", HoyolabOptions.DeviceId);
+        client.DefaultRequestHeaders.Add("x-rpc-game_biz", "bbs_oversea");
+        client.DefaultRequestHeaders.Add("x-rpc-sdk_version", "1.4.0");
     }
 }

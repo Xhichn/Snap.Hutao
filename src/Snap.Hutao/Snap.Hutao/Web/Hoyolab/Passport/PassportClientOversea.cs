@@ -36,7 +36,7 @@ internal sealed partial class PassportClientOversea : IPassportClient
 
         Response<UidCookieToken>? resp = await httpClient
             .SetUser(user, CookieType.SToken)
-            .TryCatchPostAsJsonAsync<STokenWrapper, Response<UidCookieToken>>(ApiOsEndpoints.AccountGetCookieTokenBySToken, data, options, logger, token)
+            .TryCatchPostAsJsonAsync<STokenWrapper, Response<UidCookieToken>>(ApiOsEndpoints.AccountGetCookieTokenByOldSToken, data, options, logger, token)
             .ConfigureAwait(false);
 
         return Response.Response.DefaultIfNull(resp);
@@ -58,7 +58,7 @@ internal sealed partial class PassportClientOversea : IPassportClient
 
         Response<LTokenWrapper>? resp = await httpClient
             .SetUser(user, CookieType.SToken)
-            .TryCatchPostAsJsonAsync<STokenWrapper, Response<LTokenWrapper>>(ApiOsEndpoints.AccountGetLTokenBySToken, data, options, logger, token)
+            .TryCatchPostAsJsonAsync<STokenWrapper, Response<LTokenWrapper>>(ApiOsEndpoints.AccountGetLTokenByOldSToken, data, options, logger, token)
             .ConfigureAwait(false);
 
         return Response.Response.DefaultIfNull(resp);

@@ -58,4 +58,9 @@ internal enum SaltType
     /// OSX6
     /// </summary>
     OSX6,
+
+    /// <summary>
+    /// OS Login
+    /// </summary>
+    OSPROD,
 }

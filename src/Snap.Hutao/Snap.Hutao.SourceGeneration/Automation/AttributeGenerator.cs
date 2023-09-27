@@ -104,6 +104,11 @@ internal sealed class AttributeGenerator : IIncrementalGenerator
                 /// Hoyolab app
                 /// </summary>
                 XRpc3,
+
+                /// <summary>
+                /// Hoyolab app login
+                /// </summary>
+                XRpc4,
             }
 
             [AttributeUsage(AttributeTargets.Class, Inherited = false)]

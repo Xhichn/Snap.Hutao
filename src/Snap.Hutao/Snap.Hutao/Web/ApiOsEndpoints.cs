@@ -19,26 +19,20 @@ internal static class ApiOsEndpoints
     #region ApiAccountOsApi
 
     /// <summary>
-    /// Hoyolab App Login api
-    /// Can fetch stoken
-    /// </summary>
-    public const string WebLoginByPassword = $"{ApiAccountOsAuthApi}/webLoginByPassword";
-
-    /// <summary>
     /// 获取 Ltoken
     /// </summary>
-    public const string AccountGetLTokenBySToken = $"{ApiAccountOsAuthApi}/getLTokenBySToken";
+    public const string AccountGetLTokenByOldSToken = $"{ApiAccountOsAuthApi}/getLTokenBySToken";
 
     /// <summary>
     /// fetch CookieToken
     /// </summary>
-    public const string AccountGetCookieTokenBySToken = $"{ApiAccountOsAuthApi}/getCookieAccountInfoBySToken";
+    public const string AccountGetCookieTokenByOldSToken = $"{ApiAccountOsAuthApi}/getCookieAccountInfoBySToken";
     #endregion
 
     #region ApiGeetest
 
     /// <summary>
-    /// 获取GT码
+    /// GT码
     /// </summary>
     /// <param name="gt">gt</param>
     /// <returns>GT码Url</returns>
@@ -63,7 +57,7 @@ internal static class ApiOsEndpoints
     #region ApiOsTakumiAuthApi
 
     /// <summary>
-    /// 获取 stoken 与 ltoken
+    /// 获取 SToken 与 LToken
     /// </summary>
     /// <param name="loginTicket">登录票证</param>
     /// <param name="loginUid">uid</param>
@@ -74,7 +68,7 @@ internal static class ApiOsEndpoints
     }
 
     /// <summary>
-    /// 获取 stoken 与 ltoken
+    /// 获取 SToken 与 LToken
     /// </summary>
     /// <param name="actionType">操作类型 game_role</param>
     /// <param name="stoken">SToken</param>
@@ -187,6 +181,30 @@ internal static class ApiOsEndpoints
     {
         return $"{Hk4eApiOsGachaInfoApi}/getGachaLog?{query}";
     }
+    #endregion
+
+    #region SgPublicPassportApi
+
+    /// <summary>
+    /// 获取 V2 CookieToken
+    /// </summary>
+    public const string AccountGetCookieTokenBySToken = $"{SgPublicApi}/account/ma-passport/token/getCookieAccountInfoBySToken";
+
+    /// <summary>
+    /// 获取 V2 LToken
+    /// </summary>
+    public const string AccountGetLTokenBySToken = $"{SgPublicApi}/account/ma-passport/token/getLTokenBySToken";
+
+    /// <summary>
+    /// 获取 V2 SToken
+    /// </summary>
+    public const string AccountGetSTokenByOldToken = $"{SgPublicApi}/account/ma-passport/token/getBySToken";
+
+    /// <summary>
+    /// 验证 Ltoken 有效性
+    /// </summary>
+    public const string AccountVerifyLtoken = $"{SgPublicApi}/account/ma-passport/token/verifyLtoken";
+
     #endregion
 
     #region SgPublicApi

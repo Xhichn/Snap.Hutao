@@ -47,6 +47,7 @@ internal sealed class HoyolabOptions : IOptions<HoyolabOptions>
         [SaltType.OSLK2] = SaltConstants.OSLK2,
         [SaltType.OSX4] = "h4c1d6ywfq5bsbnbhm1bzq7bxzzv6srt",
         [SaltType.OSX6] = "okr4obncj8bw5a65hbnn5oo6ixjc3l9w",
+        [SaltType.OSPROD] = "IZPgfb0dRPtBeLuFkdDznSZ6f4wWt6y2",
     }.ToImmutableDictionary();
 
     private static string? deviceId;

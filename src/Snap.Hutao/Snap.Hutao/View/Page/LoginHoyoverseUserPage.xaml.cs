@@ -8,6 +8,7 @@ using Snap.Hutao.Service.Notification;
 using Snap.Hutao.Service.User;
 using Snap.Hutao.Web;
 using Snap.Hutao.Web.Hoyolab;
+using Snap.Hutao.Web.Hoyolab.Passport;
 using Snap.Hutao.Web.Hoyolab.Takumi.Auth;
 using Snap.Hutao.Web.Request;
 using Snap.Hutao.Web.Response;
@@ -84,7 +85,7 @@ internal sealed partial class LoginHoyoverseUserPage : Microsoft.UI.Xaml.Control
         string uid = await GetUidFromCookieAsync(Ioc.Default, loginTicketCookie).ConfigureAwait(false);
         loginTicketCookie[Cookie.LOGIN_UID] = uid;
 
-        // 使用 loginTicket 获取 stoken
+        // 使用 loginTicket 获取 stoken V1
         Response<ListWrapper<NameToken>> multiTokenResponse = await Ioc.Default
             .GetRequiredService<AuthClient>()
             .GetMultiTokenByLoginTicketAsync(loginTicketCookie, true)
@@ -95,13 +96,26 @@ internal sealed partial class LoginHoyoverseUserPage : Microsoft.UI.Xaml.Control
             return;
         }
 
+        // TODO: 获取 stoken v2
         Dictionary<string, string> multiTokenMap = multiTokenResponse.Data.List.ToDictionary(n => n.Name, n => n.Token);
-        Cookie hoyolabCookie = Cookie.FromSToken(uid, multiTokenMap[Cookie.STOKEN]);
+        Cookie stokenV1 = Cookie.FromSToken(loginTicketCookie[Cookie.LOGIN_UID], multiTokenMap[Cookie.STOKEN]);
+
+        Response<LoginResult> loginResultResponse = await Ioc.Default
+            .GetRequiredService<PassportClient2Oversea>()
+            .LoginBySTokenAsync(stokenV1)
+            .ConfigureAwait(false);
+
+        if (!loginResultResponse.IsOk())
+        {
+            return;
+        }
+
+        Cookie sTokenV2 = Cookie.FromLoginResult(loginResultResponse.Data);
 
         // 处理 cookie 并添加用户
         (UserOptionResult result, string nickname) = await Ioc.Default
             .GetRequiredService<IUserService>()
-            .ProcessInputCookieAsync(hoyolabCookie, true)
+            .ProcessInputCookieAsync(sTokenV2, true)
             .ConfigureAwait(false);
 
         Ioc.Default.GetRequiredService<INavigationService>().GoBack();
